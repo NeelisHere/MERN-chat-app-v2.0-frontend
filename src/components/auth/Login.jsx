@@ -23,7 +23,7 @@ const Login = () => {
             const { data } = await loginUser(values)
             // console.log(data)
             toast.success(`Welcome back, ${data.user.username}!`)
-            localStorage.setItem('userInfo', JSON.stringify(data.user))
+            localStorage.setItem('userInfo', JSON.stringify({ ...data.user, token: data.token }))
             navigate('/home')
         } catch (error) {
             console.log(error)

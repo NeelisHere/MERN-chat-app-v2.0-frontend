@@ -5,6 +5,7 @@ import AuthPage from './pages/AuthPage';
 import { Toaster } from 'react-hot-toast';
 import HomePage from './pages/HomePage';
 import EditProfilePage from './pages/EditProfilePage';
+import ChatAuthProvider from './context/ChatAuthProvider'
 
 const router = createBrowserRouter([
 	{
@@ -15,15 +16,21 @@ const router = createBrowserRouter([
 				path: 'auth',
 				element:<AuthPage/>
 			},
-			{
-				path: '/home',
-				element: <HomePage />
-			},
-			{
-				path: '/edit-profile',
-				element: <EditProfilePage />
-			}
 		]
+	},
+	{
+		path: '/home',
+		element: 
+			<ChatAuthProvider>
+				<HomePage />
+			</ChatAuthProvider>
+	},
+	{
+		path: '/edit-profile',
+		element: 
+			<ChatAuthProvider>
+				<EditProfilePage />
+			</ChatAuthProvider>
 	}
 ])
 

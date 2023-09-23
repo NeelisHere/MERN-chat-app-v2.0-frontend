@@ -23,7 +23,7 @@ const Register = () => {
             const { data } = await registerUser(values)
             // console.log(data)
             toast.success('User registered successfully!')
-            localStorage.setItem('userInfo', JSON.stringify(data.user))
+            localStorage.setItem('userInfo', JSON.stringify({ ...data.user, token: data.token }))
             navigate('/home')
         } catch (error) {
             console.log(error)
