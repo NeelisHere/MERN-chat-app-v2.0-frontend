@@ -2,20 +2,24 @@ import { Box, Avatar, Text } from '@chakra-ui/react'
 import React from 'react'
 import toast from 'react-hot-toast'
 import { accessChat } from '../utils/APIcalls'
-import { updateIsNewChatCreatedStatus } from '../slices/chat-slice'
-import { useDispatch } from 'react-redux'
+import { changeChatsUpdateFlagStatus } from '../slices/chat-slice'
+import { useDispatch, useSelector } from 'react-redux'
 
 const UserListItem = ({ user, onClose }) => {
     const dispatch = useDispatch()
+    const { chatsUpdateFlag } = useSelector((state) => state.chat)
+
     const handleClick = async (userId) => {
-        dispatch(updateIsNewChatCreatedStatus(false))
         try {
             const { data } = await accessChat(userId)
             // console.log(data.chat)
-            dispatch(updateIsNewChatCreatedStatus(true))
+            dispatch(changeChatsUpdateFlagStatus(!chatsUpdateFlag))
             onClose()
         } catch (error) {
-            
+            console.log(error)
+            toast.error('Error accessing chat!')
+        } finally {
+
         }
     }
     

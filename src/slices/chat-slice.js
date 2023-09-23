@@ -3,15 +3,15 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     selectedChat: null,
     myChats: [],
-    isNewChatCreated: false
+    chatsUpdateFlag: false
 };
 
 export const chatSlice = createSlice({
     name: "chat",
     initialState,
     reducers: {
-        updateIsNewChatCreatedStatus: (state, action) => {
-            state.isNewChatCreated = action.payload
+        changeChatsUpdateFlagStatus: (state, action) => {
+            state.chatsUpdateFlag = action.payload
         },
         fillMyChats: (state, action) => {
             state.myChats = action.payload;
@@ -20,6 +20,6 @@ export const chatSlice = createSlice({
 });
 
 export const { 
-    updateIsNewChatCreatedStatus, 
+    changeChatsUpdateFlagStatus, 
     fillMyChats 
 } = chatSlice.actions

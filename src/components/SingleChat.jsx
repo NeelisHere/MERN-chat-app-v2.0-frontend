@@ -6,8 +6,7 @@ const SingleChat = () => {
             border={'1px solid #dedede'}
             width={'75%'}
         >
-            SingleChat
-            SingleChat
+            <Box></Box>
         </Box>
     )
 }

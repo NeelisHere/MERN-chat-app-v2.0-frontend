@@ -1,25 +1,38 @@
 import { Box, Button, Stack, Text } from '@chakra-ui/react'
 // import { useChatAuth } from '../context/ChatAuthProvider'
+import AddIcon from '@mui/icons-material/Add';
 import ChatListItem from './ChatListItem'
+// import ChatLoading from './ChatLoading'
+import GroupChatModal from './GroupChatModal'
 import { useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchMyChats } from '../utils/APIcalls'
 import { fillMyChats } from '../slices/chat-slice'
+import toast from 'react-hot-toast';
 
 const MyChats = () => {
     const dispatch = useDispatch()
+    // const [loading, setLoading] = useEffect(false)
     // const { loggedInUser } = useChatAuth()
-    const { isNewChatCreated, myChats } = useSelector((state) => state.chat)
+    const { chatsUpdateFlag, myChats } = useSelector((state) => state.chat)
 
     const fetchChats = useCallback(async () => {
-        const { data } = await fetchMyChats()
-        // console.log('>>', data.myChats)
-        dispatch(fillMyChats(data.myChats))
+        try {
+            // setLoading(true)
+            const { data } = await fetchMyChats()
+            dispatch(fillMyChats(data.myChats))
+            // console.log('>>', data.myChats)
+        } catch (error) {
+            console.log(error)
+            toast.error('Error fetching chats!')
+        } finally {
+            // setLoading(false)
+        }
     }, [dispatch])
 
     useEffect(() => {
         fetchChats()
-    }, [fetchChats, isNewChatCreated])
+    }, [fetchChats, chatsUpdateFlag])
 
     return (
         <Box
@@ -50,7 +63,11 @@ const MyChats = () => {
                 h={'70px'}
             >
                 <Text fontSize={'xl'} fontWeight={'semibold'} >Heading</Text>
-                <Button colorScheme='teal'>Create Group</Button>
+                <GroupChatModal>
+                    <Button colorScheme='teal' rightIcon={<AddIcon />}>
+                        Create Group
+                    </Button>
+                </GroupChatModal>
             </Box>
 
             <Stack
@@ -58,7 +75,9 @@ const MyChats = () => {
                 h={'100%'}
             >
                 {
-                    myChats.map((chat, index) => <ChatListItem key={index} chat={chat} />)
+                    // loading?
+                    // <ChatLoading/>:
+                    myChats?.map((chat, index) => <ChatListItem key={index} chat={chat} />)
                 }
             </Stack>
 

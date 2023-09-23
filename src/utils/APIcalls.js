@@ -31,3 +31,5 @@ export const searchUser = async (text) => api.get(`/users?search=${text}`)
 export const accessChat = async (userId) => api.post(`/chats`, { userId })
 
 export const fetchMyChats = async () => api.get(`/chats`)
+
+export const createGroupChat = async (data) => api.post(`/chats/group/create`, data)

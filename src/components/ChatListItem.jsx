@@ -2,6 +2,7 @@ import { Box, Avatar, Text } from '@chakra-ui/react'
 import React, { useEffect, useRef } from 'react'
 import toast from 'react-hot-toast'
 import { accessChat } from '../utils/APIcalls'
+import GroupsIcon from '@mui/icons-material/Groups';
 import { useChatAuth } from '../context/ChatAuthProvider'
 
 const UserListItem = ({ chat }) => {
@@ -41,8 +42,10 @@ const UserListItem = ({ chat }) => {
                             mr={3}
                             size={'md'}
                             cursor={'pointer'}
-                            // name={user?.username}
-                            src={chat.isGroupChat?.avatar}
+                            name={chat?.chatName}
+                            bg={'green.400'}
+                            color={'white'}
+                            // icon={<GroupsIcon />}
                         />
                         <Box>
                             <Text>{chat?.chatName}</Text>

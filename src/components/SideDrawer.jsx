@@ -33,7 +33,6 @@ const SideDrawer = () => {
             } finally {
                 setLoading(false)
             }
-            
         }
     }
 
