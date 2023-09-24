@@ -15,11 +15,18 @@ export const chatSlice = createSlice({
         },
         fillMyChats: (state, action) => {
             state.myChats = action.payload;
+            if (state.selectedChat) {
+                state.selectedChat = state.myChats.find((chat) => chat._id === state.selectedChat._id)
+            }
+        },
+        updateSelectedChat: (state, action) => {
+            state.selectedChat = action.payload;
         }
     },
 });
 
 export const { 
     changeChatsUpdateFlagStatus, 
-    fillMyChats 
+    fillMyChats,
+    updateSelectedChat 
 } = chatSlice.actions

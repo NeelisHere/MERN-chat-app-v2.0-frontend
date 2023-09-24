@@ -1,32 +1,36 @@
 import { Box, Avatar, Text } from '@chakra-ui/react'
-import React, { useEffect, useRef } from 'react'
-import toast from 'react-hot-toast'
-import { accessChat } from '../utils/APIcalls'
-import GroupsIcon from '@mui/icons-material/Groups';
+import React, { useEffect, useState } from 'react'
 import { useChatAuth } from '../context/ChatAuthProvider'
+import { updateSelectedChat } from '../slices/chat-slice.js'
+import { useDispatch, useSelector } from 'react-redux';
+import { getSender } from '../utils';
 
 const UserListItem = ({ chat }) => {
     const { loggedInUser } = useChatAuth()
+    const dispatch = useDispatch()
+    const { selectedChat } = useSelector((state) => state.chat)
+    const [sender, setSender] = useState(null)
 
-    const handleClick = async (userId) => {
-        // try {
-        //     const { data } = await accessChat(userId)
-        //     console.log(data.chat)
-        // } catch (error) {
+    useEffect(() => {
+        if (!chat?.isGroupChat) {
+            setSender((prevSender) => {
+                return getSender(chat.users, loggedInUser)
+            })
+        }
+    }, [chat?.isGroupChat, chat.users, loggedInUser])
 
-        // }
+    const handleClick = async () => {
+        dispatch(updateSelectedChat(chat))
     }
 
-    // console.log(user)
     return (
         <Box
             // border={'2px solid red'}
-            onClick={() => {
-                // handleClick(user._id) 
-            }}
+            onClick={handleClick}
+            bg={selectedChat?._id === chat?._id? '#d3d3d3' : ''}
             cursor={'pointer'}
             _hover={{
-                bg: '#dedede'
+                bg: selectedChat?._id === chat?._id? '#d3d3d3' : '#dedede'
             }}
             w={'100%'}
             display={'flex'}
@@ -37,52 +41,35 @@ const UserListItem = ({ chat }) => {
         >
             {
                 chat.isGroupChat ?
-                    <>
-                        <Avatar
-                            mr={3}
-                            size={'md'}
-                            cursor={'pointer'}
-                            name={chat?.chatName}
-                            bg={'green.400'}
-                            color={'white'}
-                            // icon={<GroupsIcon />}
-                        />
-                        <Box>
-                            <Text>{chat?.chatName}</Text>
-                            <Text fontSize={'xs'}> Lorem ipsum dolor sit amet. </Text>
-                        </Box>
-                    </>
-                    :
-                    <>
-                        <Avatar
-                            mr={3}
-                            size={'md'}
-                            cursor={'pointer'}
-                            name={
-                                // sender.current?.username
-                                chat.users[0]._id === loggedInUser._id? 
-                                chat.users[1].username : chat.users[0].username
-                            }
-                            src={
-                                // chat.isGroupChat?.avatar
-                                chat.users[0]._id === loggedInUser._id? 
-                                chat.users[1].avatar : chat.users[0].avatar
-                            }
-                        />
-                        <Box>
-                            <Text>
-                                {
-                                    // {sender.current?.username}
-                                    chat.users[0]._id === loggedInUser._id? 
-                                    chat.users[1].username : chat.users[0].username
-                                }
-                            </Text>
-                            <Text fontSize={'xs'}> Lorem ipsum dolor sit amet. </Text>
-                        </Box>
-                    </>
+                <>
+                    <Avatar
+                        mr={3}
+                        size={'md'}
+                        cursor={'pointer'}
+                        name={chat?.chatName}
+                        bg='teal.500'
+                        color={'white'}
+                    />
+                    <Box>
+                        <Text>{chat?.chatName}</Text>
+                        <Text fontSize={'xs'}> Latest message would be displayed.</Text>
+                    </Box>
+                </>
+                :
+                <>
+                    <Avatar
+                        mr={3}
+                        size={'md'}
+                        cursor={'pointer'}
+                        name={sender?.username}
+                        src={sender?.avatar}
+                    />
+                    <Box>
+                        <Text>{sender?.username}</Text>
+                        <Text fontSize={'xs'}> Latest message would be displayed. </Text>
+                    </Box>
+                </>
             }
-
-
         </Box>
     )
 }

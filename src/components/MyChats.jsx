@@ -12,21 +12,16 @@ import toast from 'react-hot-toast';
 
 const MyChats = () => {
     const dispatch = useDispatch()
-    // const [loading, setLoading] = useEffect(false)
-    // const { loggedInUser } = useChatAuth()
     const { chatsUpdateFlag, myChats } = useSelector((state) => state.chat)
 
     const fetchChats = useCallback(async () => {
         try {
-            // setLoading(true)
             const { data } = await fetchMyChats()
             dispatch(fillMyChats(data.myChats))
             // console.log('>>', data.myChats)
         } catch (error) {
             console.log(error)
             toast.error('Error fetching chats!')
-        } finally {
-            // setLoading(false)
         }
     }, [dispatch])
 
@@ -75,8 +70,6 @@ const MyChats = () => {
                 h={'100%'}
             >
                 {
-                    // loading?
-                    // <ChatLoading/>:
                     myChats?.map((chat, index) => <ChatListItem key={index} chat={chat} />)
                 }
             </Stack>

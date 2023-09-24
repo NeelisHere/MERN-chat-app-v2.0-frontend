@@ -5,6 +5,7 @@ import toast from 'react-hot-toast'
 import { createGroupChat, searchUser } from '../utils/APIcalls'
 import { useDispatch, useSelector } from 'react-redux'
 import { changeChatsUpdateFlagStatus } from '../slices/chat-slice.js'
+import ClearIcon from '@mui/icons-material/Clear';
 
 
 function GroupChatModal({ children }) {
@@ -64,7 +65,8 @@ function GroupChatModal({ children }) {
                 chatName: title,
                 users: JSON.stringify(selectedUsers.map((user) => user._id))
             }
-            const { data } = await createGroupChat(userData)
+            await createGroupChat(userData)
+            // const { data } = await createGroupChat(userData)
             // console.log(data)
             dispatch(changeChatsUpdateFlagStatus(!chatsUpdateFlag))
             onClose()
@@ -93,14 +95,13 @@ function GroupChatModal({ children }) {
                         flexDir={'column'}
                         justifyContent={'center'}
                         alignItems={'center'}
-                        bg={'#f4f4f4'}
                     >
                         <FormControl>
                             <Input
                                 placeholder='Chat Name'
                                 mb={3}
                                 w={'100%'}
-                                bg={'white'}
+                                variant={'filled'}
                                 value={title}
                                 onChange={(e) => { setTitle(e.target.value) }}
                             />
@@ -110,7 +111,7 @@ function GroupChatModal({ children }) {
                                 placeholder='Add users'
                                 mb={3}
                                 w={'100%'}
-                                bg={'white'}
+                                variant={'filled'}
                                 onChange={handleSearch}
                             />
                         </FormControl>
@@ -119,16 +120,17 @@ function GroupChatModal({ children }) {
                             {
                                 selectedUsers.map((user, index) => {
                                     return (
-                                        <Badge
+                                        <Button
                                             key={index}
                                             colorScheme={'teal'}
-                                            cursor={'pointer'}
+                                            rightIcon={<ClearIcon fontSize='xs'/>}
+                                            size={'xs'}
                                             onClick={() => {
                                                 handleDelete(user)
                                             }}
                                         >
                                             {user.username}
-                                        </Badge>
+                                        </Button>
                                     )
                                 })
                             }
@@ -145,7 +147,7 @@ function GroupChatModal({ children }) {
                                                 handleSelect(user)
                                             }}
                                             cursor={'pointer'}
-                                            bg={'white'}
+                                            bg={'#f4f4f4'}
                                             shadow={'base'}
                                             _hover={{
                                                 shadow: 'md'

@@ -33,3 +33,10 @@ export const accessChat = async (userId) => api.post(`/chats`, { userId })
 export const fetchMyChats = async () => api.get(`/chats`)
 
 export const createGroupChat = async (data) => api.post(`/chats/group/create`, data)
+
+export const renameGroupChat = async (data) => api.put(`/chats/group/rename-chat`, data)
+
+export const addUserToGroup = async (data) => api.put(`/chats/group/add-user`, data)
+
+export const removeUserFromGroup = async (data) => api.put(`/chats/group/remove-user`, data)
+

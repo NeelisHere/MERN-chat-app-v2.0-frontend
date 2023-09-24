@@ -10,6 +10,7 @@ const UserListItem = ({ user, onClose }) => {
     const { chatsUpdateFlag } = useSelector((state) => state.chat)
 
     const handleClick = async (userId) => {
+        if (!userId) return;
         try {
             const { data } = await accessChat(userId)
             // console.log(data.chat)
@@ -18,18 +19,15 @@ const UserListItem = ({ user, onClose }) => {
         } catch (error) {
             console.log(error)
             toast.error('Error accessing chat!')
-        } finally {
-
         }
     }
     
     return (
         <Box
             onClick={() => { 
-                handleClick(user._id) 
+                handleClick(user?._id) 
             }}
             cursor={'pointer'}
-            // bg={isInGroupChatModal?'#f4f4f4':'white'}
             bg={'white'}
             shadow={'base'}
             _hover={{
@@ -44,7 +42,6 @@ const UserListItem = ({ user, onClose }) => {
             mb={3}
             borderRadius={'lg'}
         >
-            {/* {user.username} */}
             <Avatar
                 mr={2}
                 size={'md'}

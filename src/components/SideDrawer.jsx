@@ -10,7 +10,7 @@ import { searchUser } from '../utils/APIcalls';
 const SideDrawer = () => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const buttonRef = useRef()
-    const searchTextRef = useRef()
+    const searchTextRef = useRef('')
     const [searchResult, setSearchResult] = useState([])
     const [loading, setLoading] = useState(false)
 
@@ -25,7 +25,7 @@ const SideDrawer = () => {
                     toast.error('No users found!')
                 }
                 setSearchResult(data.users)
-                searchTextRef.current.value = ''
+                // searchTextRef.current.value = ''
                 // console.log(data)
             } catch (error) {
                 console.log(error)
