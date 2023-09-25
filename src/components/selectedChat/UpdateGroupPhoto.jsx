@@ -1,10 +1,10 @@
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button, Box, useDisclosure, Input, Avatar, Stack, InputGroup, InputLeftAddon } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
-import { useChatAuth } from '../context/ChatAuthProvider'
+import { useChatAuth } from '../../context/ChatAuthProvider'
 import toast from 'react-hot-toast'
-import { getImageURL } from '../utils/index.js'
-import { updateMyProfileAPI } from '../utils/APIcalls.js'
-import { changeMessagesUpdateFlagStatus, changeChatsUpdateFlagStatus } from '../slices/chat-slice.js'
+import { getImageURL } from '../../utils/index.js'
+import { updateMyProfileAPI } from '../../utils/APIcalls.js'
+import { changeMessagesUpdateFlagStatus, changeChatsUpdateFlagStatus } from '../../slices/chat-slice.js'
 import { useDispatch, useSelector } from 'react-redux'
 
 
