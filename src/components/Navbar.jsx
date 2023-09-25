@@ -6,6 +6,7 @@ import ProfileModal from './ProfileModal'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { useNavigate } from 'react-router-dom';
+import UpdateMyProfileModal from './UpdateMyProfileModal.jsx'
 
 const Navbar = () => {
     const { loggedInUser } = useChatAuth()
@@ -54,6 +55,10 @@ const Navbar = () => {
                             <MenuItem>My Profile</MenuItem>
                         </ProfileModal>
                         <MenuDivider />
+                        <UpdateMyProfileModal>
+                            <MenuItem> Edit Profile </MenuItem>
+                        </UpdateMyProfileModal>
+                        <MenuDivider />
                         <MenuItem
                             onClick={() => {
                                 localStorage.removeItem('userInfo')
@@ -61,14 +66,6 @@ const Navbar = () => {
                             }}
                         >
                             Logout
-                        </MenuItem>
-                        <MenuDivider />
-                        <MenuItem
-                            onClick={() => {
-                                navigate('/edit-profile')
-                            }}
-                        >
-                            Edit Profile
                         </MenuItem>
                     </MenuList>
                 </Menu>

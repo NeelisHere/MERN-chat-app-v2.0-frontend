@@ -1,4 +1,4 @@
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, useDisclosure, Badge } from '@chakra-ui/react'
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, useDisclosure } from '@chakra-ui/react'
 import { Button, FormControl, Input, Box, Spinner, Avatar, Text } from '@chakra-ui/react'
 import { useState } from 'react'
 import toast from 'react-hot-toast'

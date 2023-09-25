@@ -10,8 +10,36 @@ import AudioFileIcon from '@mui/icons-material/AudioFile';
 import MicIcon from '@mui/icons-material/Mic';
 import VideoFileIcon from '@mui/icons-material/VideoFile';
 import VideoCameraBackIcon from '@mui/icons-material/VideoCameraBack';
+import { useState } from "react";
+import { sendMessageAPI } from "../../utils/APIcalls";
+import { useDispatch, useSelector } from "react-redux";
+import { changeMessagesUpdateFlagStatus, changeChatsUpdateFlagStatus } from '../../slices/chat-slice.js'
+import toast from "react-hot-toast";
 
 const SelectedChatInput = () => {
+    const dispatch = useDispatch()
+    const [message, setMessage] = useState('')
+    const [loading, setLoading] = useState(false)
+    const { selectedChat, chatsUpdateFlag } = useSelector((state) => state.chat)
+
+    const handleSend = async () => {
+        try {
+            setLoading(true)
+            const payload = {
+                content: message,
+                chatId: selectedChat._id
+            }
+            await sendMessageAPI(payload)
+            dispatch(changeMessagesUpdateFlagStatus())
+            dispatch(changeChatsUpdateFlagStatus(!chatsUpdateFlag))
+
+        } catch (error) {
+            console.log(error)
+            toast.error('Error sending message!')
+        } finally {
+            setLoading(false)
+        }
+    }
 
     const sendOptions = [
         { type: 'Text File', icon: <DescriptionIcon /> },
@@ -42,6 +70,10 @@ const SelectedChatInput = () => {
                 <Input
                     variant='filled'
                     placeholder='Filled'
+                    value={message}
+                    onChange={(e) => { 
+                        setMessage(e.target.value) 
+                    }}
                 />
             </Box>
             <Box
@@ -62,9 +94,9 @@ const SelectedChatInput = () => {
                             gap={3} p={'15px'} pr={'5px'}
                         >
                             {
-                                sendOptions.map((option) => {
+                                sendOptions.map((option, index) => {
                                     return(
-                                        <Tooltip label={option.type}>
+                                        <Tooltip key={index} label={option.type}>
                                             <Avatar
                                                 cursor={'pointer'}
                                                 bg={'#606060'}
@@ -80,12 +112,17 @@ const SelectedChatInput = () => {
             </Box>
             <Box
                 // border={'2px solid red'}
-                w={'5%'} h={'100%'}
+                w={'5%'} 
+                h={'100%'}
                 display={'flex'}
                 justifyContent={'center'}
                 alignItems={'center'}
             >
-                <IconButton aria-label='Search database' icon={<SendIcon />} />
+                <IconButton 
+                    onClick={handleSend}
+                    icon={<SendIcon />} 
+                    isLoading={loading}
+                />
             </Box>
         </Box>
     )

@@ -1,5 +1,5 @@
 import { Avatar, Box, Button, Spinner, Text } from "@chakra-ui/react"
-import { Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react'
+import { Menu, MenuButton, MenuList, MenuItem, MenuDivider } from '@chakra-ui/react'
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
@@ -7,6 +7,7 @@ import { getSender } from "../../utils"
 import { useChatAuth } from "../../context/ChatAuthProvider"
 import RenameGroupChatModal from "./RenameGroupChatModal";
 import UpdateGroupChatMembersModal from './UpdateGroupChatMembersModal'
+import UpdateGroupPhoto from "./UpdateGroupPhoto"
 import { removeUserFromGroup } from '../../utils/APIcalls.js'
 import { changeChatsUpdateFlagStatus } from "../../slices/chat-slice";
 import toast from "react-hot-toast";
@@ -114,9 +115,15 @@ const SelectedChatNav = () => {
                             <RenameGroupChatModal>
                                 <MenuItem>Edit Group Name</MenuItem>
                             </RenameGroupChatModal>
+                            <MenuDivider />
                             <UpdateGroupChatMembersModal>
                                 <MenuItem>Update Group Members</MenuItem>
                             </UpdateGroupChatMembersModal>
+                            <MenuDivider />
+                            <UpdateGroupPhoto>
+                                <MenuItem>Update Group Photo</MenuItem>
+                            </UpdateGroupPhoto>
+                            <MenuDivider />
                             <MenuItem onClick={handleExit}>
                                 { loading? <Spinner/> : 'Exit Group' }
                             </MenuItem>

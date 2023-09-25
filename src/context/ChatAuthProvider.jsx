@@ -17,7 +17,7 @@ const ChatAuthProvider = ({ children }) => {
     }, [navigate])
 
     return (
-        <ChatAuthContext.Provider value={{ loggedInUser }}>
+        <ChatAuthContext.Provider value={{ loggedInUser, setLoggedInUser }}>
             { children }
         </ChatAuthContext.Provider>
     )

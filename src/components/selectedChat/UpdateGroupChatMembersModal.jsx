@@ -5,10 +5,12 @@ import ClearIcon from '@mui/icons-material/Clear';
 import { addUserToGroup, removeUserFromGroup, searchUser, fetchMyChats } from '../../utils/APIcalls'
 import { changeChatsUpdateFlagStatus, fillMyChats } from '../../slices/chat-slice.js'
 import toast from 'react-hot-toast'
+import { useChatAuth } from '../../context/ChatAuthProvider';
 
 
 const UpdateGroupChatMembersModal = ({ children }) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const {loggedInUser} = useChatAuth()
     const dispatch = useDispatch()
     const { selectedChat, chatsUpdateFlag } = useSelector((state) => state.chat)
     const { users } = selectedChat
@@ -43,6 +45,11 @@ const UpdateGroupChatMembersModal = ({ children }) => {
     }
 
     const handleRemoveUser = async (user) => {
+        // only admins can add/remove users
+        if (selectedChat.groupAdmin?._id !== loggedInUser._id) {
+            toast.error('Only admins can add/remove users')
+            return;
+        }
         try {
             setLoading(true)
             const payload = {
@@ -60,6 +67,11 @@ const UpdateGroupChatMembersModal = ({ children }) => {
     }
 
     const handleAddNewUser = async (user) => {
+        // only admins can add/remove users
+        if (selectedChat.groupAdmin?._id !== loggedInUser._id) {
+            toast.error('Only admins can add/remove users')
+            return;
+        }
         try {
             setLoading(true)
             const payload = {
@@ -97,7 +109,7 @@ const UpdateGroupChatMembersModal = ({ children }) => {
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent>
-                    <ModalHeader textAlign={'center'}>Update Group Chat</ModalHeader>
+                    <ModalHeader textAlign={'center'}>Update Group Members</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody
                         display={'flex'}

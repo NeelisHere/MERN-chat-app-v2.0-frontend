@@ -13,7 +13,7 @@ const UserListItem = ({ user, onClose }) => {
         if (!userId) return;
         try {
             const { data } = await accessChat(userId)
-            // console.log(data.chat)
+            console.log('Chat selected: ', data.chat)
             dispatch(changeChatsUpdateFlagStatus(!chatsUpdateFlag))
             onClose()
         } catch (error) {
