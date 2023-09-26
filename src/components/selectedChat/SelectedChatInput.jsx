@@ -12,26 +12,33 @@ import VideoFileIcon from '@mui/icons-material/VideoFile';
 import VideoCameraBackIcon from '@mui/icons-material/VideoCameraBack';
 import { useState } from "react";
 import { sendMessageAPI } from "../../utils/APIcalls";
-import { useDispatch, useSelector } from "react-redux";
-import { changeMessagesUpdateFlagStatus, changeChatsUpdateFlagStatus } from '../../slices/chat-slice.js'
+import { useSelector } from "react-redux";
+// import { changeMessagesUpdateFlagStatus, changeChatsUpdateFlagStatus } from '../../slices/chat-slice.js'
 import toast from "react-hot-toast";
+import { useSocket } from "../../context/SocketProvider";
 
 const SelectedChatInput = () => {
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
+    const { socket } = useSocket()
     const [message, setMessage] = useState('')
     const [loading, setLoading] = useState(false)
-    const { selectedChat, chatsUpdateFlag } = useSelector((state) => state.chat)
+    const { selectedChat } = useSelector((state) => state.chat)
 
     const handleSend = async () => {
         try {
             setLoading(true)
             const payload = {
                 content: message,
-                chatId: selectedChat._id
+                chatId: selectedChat?._id
             }
-            await sendMessageAPI(payload)
-            dispatch(changeMessagesUpdateFlagStatus())
-            dispatch(changeChatsUpdateFlagStatus(!chatsUpdateFlag))
+            const { data } = await sendMessageAPI(payload)
+            // dispatch(changeMessagesUpdateFlagStatus())
+            // dispatch(changeChatsUpdateFlagStatus(!chatsUpdateFlag))
+            socket.emit('NEW_MESSAGE_REQ', {
+                roomId: selectedChat?._id,
+                message: data.message
+            })
+            setMessage('')
 
         } catch (error) {
             console.log(error)
@@ -69,7 +76,7 @@ const SelectedChatInput = () => {
             >
                 <Input
                     variant='filled'
-                    placeholder='Filled'
+                    placeholder='Type message here...'
                     value={message}
                     onChange={(e) => { 
                         setMessage(e.target.value) 

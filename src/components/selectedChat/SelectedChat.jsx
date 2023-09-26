@@ -7,20 +7,44 @@ import { fetchMessagesAPI } from '../../utils/APIcalls'
 import { fillMessages } from "../../slices/chat-slice.js"
 import toast from "react-hot-toast"
 import Message from "./Message"
+import { useSocket } from "../../context/SocketProvider"
 
 const SelectedChat = () => {
     const dispatch = useDispatch()
+    const { socket } = useSocket()
     const [loading, setLoading] = useState(false)
-    const { selectedChat, messages } = useSelector((state) => state.chat)
+    const [messages, setMessages] = useState([])
+    // const { selectedChat, messages } = useSelector((state) => state.chat)
+    const { selectedChat, messages: storeMessages } = useSelector((state) => state.chat)
     const messageEl = useRef(null);
+
+    useEffect(() => {
+        setMessages(storeMessages)
+    }, [storeMessages])
+
+    const handleMessageReceived = ({ chatId, message }) => {
+        console.log('message received...')
+        if (chatId === selectedChat?._id) {
+            // fetchMessages()
+            setMessages([...messages, message])
+        }
+    }
+
+    useEffect(() => {
+        socket.on('NEW_MESSAGE_RES', handleMessageReceived)
+        socket.on('JOIN_CHAT_RES', handleJoinChatResponse)
+        return () => {
+            socket.off('NEW_MESSAGE_RES', handleMessageReceived)
+            socket.off('JOIN_CHAT_RES', handleJoinChatResponse)
+        }
+    })
 
     const fetchMessages = useCallback(async () => {
         try {
             setLoading(true)
-            const { data } = await fetchMessagesAPI(selectedChat._id)
+            const { data } = await fetchMessagesAPI(selectedChat?._id)
             // console.log(data)
             dispatch(fillMessages([...data.messages]))
-            // window.scrollTo(0, ref.current.scrollHeight);
         } catch (error) {
             console.log(error)
             toast.error('Error while fetching messages!')
@@ -41,6 +65,10 @@ const SelectedChat = () => {
             });
         }
     }, [])
+
+    const handleJoinChatResponse = (res) => {
+        console.log(res)
+    }
 
     return (
         <Stack spacing={0} h={'100%'}>

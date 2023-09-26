@@ -6,6 +6,7 @@ import { Toaster } from 'react-hot-toast';
 import HomePage from './pages/HomePage';
 import EditProfilePage from './pages/EditProfilePage';
 import ChatAuthProvider from './context/ChatAuthProvider'
+import SocketProvider from './context/SocketProvider'
 
 const router = createBrowserRouter([
 	{
@@ -14,20 +15,20 @@ const router = createBrowserRouter([
 		children: [
 			{
 				path: 'auth',
-				element:<AuthPage/>
+				element: <AuthPage />
 			},
 		]
 	},
 	{
 		path: '/home',
-		element: 
+		element:
 			<ChatAuthProvider>
 				<HomePage />
 			</ChatAuthProvider>
 	},
 	{
 		path: '/edit-profile',
-		element: 
+		element:
 			<ChatAuthProvider>
 				<EditProfilePage />
 			</ChatAuthProvider>
@@ -37,8 +38,10 @@ const router = createBrowserRouter([
 const App = () => {
 	return (
 		<div>
-			<RouterProvider router={router} />
-			<Toaster />
+			<SocketProvider>
+				<RouterProvider router={router} />
+				<Toaster />
+			</SocketProvider>
 		</div>
 	);
 }

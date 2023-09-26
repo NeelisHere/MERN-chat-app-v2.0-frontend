@@ -4,9 +4,11 @@ import { useChatAuth } from '../context/ChatAuthProvider'
 import { updateSelectedChat } from '../slices/chat-slice.js'
 import { useDispatch, useSelector } from 'react-redux';
 import { getSender } from '../utils';
+import { useSocket } from '../context/SocketProvider';
 
 const UserListItem = ({ chat }) => {
     const { loggedInUser } = useChatAuth()
+    const { socket } = useSocket()
     const dispatch = useDispatch()
     const { selectedChat } = useSelector((state) => state.chat)
     const [sender, setSender] = useState(null)
@@ -20,7 +22,8 @@ const UserListItem = ({ chat }) => {
     }, [chat?.isGroupChat, chat.users, loggedInUser])
 
     const handleClick = async () => {
-        dispatch(updateSelectedChat(chat))
+        dispatch(updateSelectedChat(chat)) //dispatch is synchronous
+        socket.emit('JOIN_CHAT_REQ', { roomId: chat._id })
     }
 
     return (
@@ -47,6 +50,7 @@ const UserListItem = ({ chat }) => {
                         size={'md'}
                         cursor={'pointer'}
                         name={chat?.chatName}
+                        src={chat?.photo}
                         bg='teal.500'
                         color={'white'}
                     />

@@ -7,9 +7,13 @@ import { fetchMyChats } from '../utils/APIcalls'
 import { useDispatch } from 'react-redux'
 import { fillMyChats } from '../slices/chat-slice.js'
 import toast from 'react-hot-toast'
+import { useSocket } from '../context/SocketProvider'
+import { useChatAuth } from '../context/ChatAuthProvider'
 
 const HomePage = () => {
     const dispatch = useDispatch()
+    const { socket } = useSocket()
+    const { loggedInUser } = useChatAuth()
     const fetchChats = useCallback(async () => {
         try {
             const { data } = await fetchMyChats()
@@ -22,8 +26,30 @@ const HomePage = () => {
     }, [dispatch])
 
     useEffect(() => {
-        fetchChats()
-    }, [fetchChats])
+        /*
+        because getting the logged-in-user info takes time.
+        so in the very first request, it is not able to send the user info with the header.
+        that is why this check is necessary
+        */
+        if (loggedInUser) {
+            fetchChats()
+        }
+    }, [fetchChats, loggedInUser])
+
+    const handleJoinRoomSuccess = useCallback((payload) => {
+        console.log(payload)
+    }, [])
+
+    useEffect(() => {
+        if (loggedInUser) {
+            socket.emit('JOIN_ROOM_REQ', loggedInUser)
+        }
+        socket.on('JOIN_ROOM_RES', handleJoinRoomSuccess)
+
+        return () => {
+            socket.off('JOIN_ROOM_RES', handleJoinRoomSuccess)
+        }
+    }, [handleJoinRoomSuccess, loggedInUser, socket])
 
     return (
         <Box

@@ -24,6 +24,7 @@ export const createGroupChat = async (data) => api.post(`/chats/group/create`, d
 export const renameGroupChat = async (data) => api.put(`/chats/group/rename-chat`, data)
 export const addUserToGroup = async (data) => api.put(`/chats/group/add-user`, data)
 export const removeUserFromGroup = async (data) => api.put(`/chats/group/remove-user`, data)
+export const updateGroupPhotoAPI = async (data) => api.put(`/chats/group/edit-photo`, data)
 
 export const fetchMessagesAPI = async (chatId) => api.get(`/messages/${chatId}`)
 export const sendMessageAPI = async (data) => api.post(`/messages/`, data)

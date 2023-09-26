@@ -10,7 +10,7 @@ const Message = ({ message }) => {
             display={"flex"}
             alignItems={'center'}
             justifyContent={
-                loggedInUser._id === message.sender._id ? 
+                loggedInUser?._id === message.sender._id ? 
                 'flex-end' : 'flex-start'
             }
         >
@@ -22,7 +22,7 @@ const Message = ({ message }) => {
                 gap={1}
                 p={'8px 20px'}
                 flexDir={
-                    loggedInUser._id === message.sender._id ? 
+                    loggedInUser?._id === message.sender._id ? 
                     '' : 'row-reverse'
                 }
             >
@@ -30,11 +30,11 @@ const Message = ({ message }) => {
                     // border={'2px solid green'}
                     borderRadius={'5px'}
                     borderTopRightRadius={
-                        loggedInUser._id === message.sender._id ? 
+                        loggedInUser?._id === message.sender._id ? 
                         '0' : '5px'
                     }
                     borderTopLeftRadius={
-                        loggedInUser._id !== message.sender._id ? 
+                        loggedInUser?._id !== message.sender._id ? 
                         '0' : '5px'
                     }
                     bg={'#f4f4f4'}

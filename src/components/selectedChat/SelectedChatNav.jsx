@@ -66,7 +66,7 @@ const SelectedChatNav = () => {
                         <Avatar
                             size={'md'}
                             name={selectedChat?.chatName}
-                            // src={selectedChat?.chatName}
+                            src={selectedChat?.photo}
                             bg='teal.500'
                             color={'white'}
                         />

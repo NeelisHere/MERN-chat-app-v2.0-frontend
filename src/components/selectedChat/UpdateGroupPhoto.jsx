@@ -1,16 +1,16 @@
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button, Box, useDisclosure, Input, Avatar, Stack, InputGroup, InputLeftAddon } from '@chakra-ui/react'
+import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button, Box, useDisclosure, Avatar } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
-import { useChatAuth } from '../../context/ChatAuthProvider'
+// import { useChatAuth } from '../../context/ChatAuthProvider'
 import toast from 'react-hot-toast'
 import { getImageURL } from '../../utils/index.js'
-import { updateMyProfileAPI } from '../../utils/APIcalls.js'
+import { updateGroupPhotoAPI } from '../../utils/APIcalls.js'
 import { changeMessagesUpdateFlagStatus, changeChatsUpdateFlagStatus } from '../../slices/chat-slice.js'
 import { useDispatch, useSelector } from 'react-redux'
 
 
 const UpdateGroupPhoto = ({ children }) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
-    const { loggedInUser } = useChatAuth()
+    // const { loggedInUser } = useChatAuth()
     const dispatch = useDispatch()
     const { selectedChat, chatsUpdateFlag } = useSelector((state) => state.chat)
     const [loading, setLoading] = useState(false)
@@ -40,8 +40,8 @@ const UpdateGroupPhoto = ({ children }) => {
         try {
             setLoading(true)
             const { secure_url } = await getImageURL(file)
-            const payload = { chatId: selectedChat._id, photo: secure_url }
-            await updateMyProfileAPI(loggedInUser?._id, payload)
+            const payload = { chatId: selectedChat?._id, photo: secure_url }
+            await updateGroupPhotoAPI(payload)
             dispatch(changeChatsUpdateFlagStatus(!chatsUpdateFlag))
             dispatch(changeMessagesUpdateFlagStatus())
             toast.success('Group Photo updated successfully!')
@@ -53,7 +53,7 @@ const UpdateGroupPhoto = ({ children }) => {
             setLoading(false)
         }
     }
-    
+
     return (
         <>
             <Box onClick={onOpen}>{children}</Box>
@@ -62,45 +62,47 @@ const UpdateGroupPhoto = ({ children }) => {
                 <ModalContent>
                     <ModalHeader textAlign={'center'}>Update Group Photo</ModalHeader>
                     <ModalCloseButton />
-                    <Box
-                        // border={'2px solid red'}
-                        display={'flex'}
-                        justifyContent={'center'}
-                        alignItems={'center'}
-                        flexDir={'column'}
-                        py={'10px'}
-                    >
-                        <Avatar
-                            size={'2xl'}
-                            // name={username}
-                            src={avatar}
-                            border={'6px solid #dedede'}
-                            my={'20px'}
-                        />
-
+                    <ModalBody>
                         <Box
                             // border={'2px solid red'}
                             display={'flex'}
-                            gap={2}
+                            justifyContent={'center'}
+                            alignItems={'center'}
+                            flexDir={'column'}
+                            py={'10px'}
                         >
-                            <Button colorScheme='gray'>
-                                <input
-                                    style={{ display: "none" }}
-                                    type="file"
-                                    id="pfp"
-                                    onChange={previewAvatar}
-                                />
-                                <label htmlFor="pfp">Choose Photo</label>
-                            </Button>
-                            <Button
-                                colorScheme='gray'
-                                onClick={() => setAvatar('')}
-                            >
-                                Remove Photo
-                            </Button>
-                        </Box>
+                            <Avatar
+                                size={'2xl'}
+                                name={selectedChat?.chatName}
+                                src={avatar}
+                                border={'6px solid #dedede'}
+                                my={'20px'}
+                            />
 
-                    </Box>
+                            <Box
+                                // border={'2px solid red'}
+                                display={'flex'}
+                                gap={2}
+                            >
+                                <Button colorScheme='gray'>
+                                    <input
+                                        style={{ display: "none" }}
+                                        type="file"
+                                        id="pfp"
+                                        onChange={previewAvatar}
+                                    />
+                                    <label htmlFor="pfp">Choose Photo</label>
+                                </Button>
+                                <Button
+                                    colorScheme='gray'
+                                    onClick={() => setAvatar('')}
+                                >
+                                    Remove Photo
+                                </Button>
+                            </Box>
+
+                        </Box>
+                    </ModalBody>
                     <ModalFooter>
                         <Button
                             colorScheme='teal'

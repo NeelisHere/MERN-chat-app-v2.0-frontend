@@ -9,11 +9,8 @@ import {
     ModalCloseButton,
     IconButton,
     useDisclosure,
-    Button,
     Image,
     Text,
-    Box,
-    Container,
 } from '@chakra-ui/react'
 
 const ProfileModal = ({ user, children }) => {
@@ -63,14 +60,6 @@ const ProfileModal = ({ user, children }) => {
                         alignItems={'center'}
                         p={'25px'}
                     >
-                        <Box mb={5}>
-                            <Text fontSize={'xs'}>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis asperiores inventore facere fugiat voluptatibus corporis ducimus.
-                            </Text>
-                        </Box>
-                        <Button colorScheme={'teal'} w={'100%'} >
-                            Edit Profile
-                        </Button>
                     </ModalFooter>
                 </ModalContent>
             </Modal>
