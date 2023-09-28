@@ -35,8 +35,8 @@ const SelectedChatInput = () => {
             // dispatch(changeMessagesUpdateFlagStatus())
             // dispatch(changeChatsUpdateFlagStatus(!chatsUpdateFlag))
             socket.emit('NEW_MESSAGE_REQ', {
-                roomId: selectedChat?._id,
-                message: data.message
+                message: data.message,
+                chat: selectedChat
             })
             setMessage('')
 

@@ -4,16 +4,55 @@ import Navbar from '../components/Navbar'
 import MyChats from '../components/MyChats'
 import SingleChat from '../components/SingleChat'
 import { fetchMyChats } from '../utils/APIcalls'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { fillMyChats } from '../slices/chat-slice.js'
 import toast from 'react-hot-toast'
 import { useSocket } from '../context/SocketProvider'
 import { useChatAuth } from '../context/ChatAuthProvider'
+import { getSender } from '../utils'
 
 const HomePage = () => {
     const dispatch = useDispatch()
     const { socket } = useSocket()
     const { loggedInUser } = useChatAuth()
+    const { selectedChat } = useSelector((state) => state.chat)
+
+    const handleJoinRoomSuccess = useCallback((payload) => {
+        console.log(payload)
+    }, [])
+
+    useEffect(() => {
+        if (loggedInUser) {
+            socket.emit('JOIN_ROOM_REQ', loggedInUser)
+        }
+    }, [handleJoinRoomSuccess, loggedInUser, socket])
+
+    const handleMessageReceived = ({ message, chat }) => {
+        console.log('message received...')
+        if (!selectedChat) {
+            socket.emit('NOTIFY_REQ', { // sender and reciever of the original message
+                sender: getSender(chat.users, loggedInUser),
+                receiver: loggedInUser,
+                chat
+            })
+        }
+    }
+
+    useEffect(() => {
+        socket.on('NEW_MESSAGE_RES', handleMessageReceived)
+        return () => {
+            socket.off('NEW_MESSAGE_RES', handleMessageReceived)
+        }
+    })
+
+    useEffect(() => {
+        socket.on('JOIN_ROOM_RES', handleJoinRoomSuccess)
+
+        return () => {
+            socket.off('JOIN_ROOM_RES', handleJoinRoomSuccess)
+        }
+    })
+
     const fetchChats = useCallback(async () => {
         try {
             const { data } = await fetchMyChats()
@@ -35,21 +74,6 @@ const HomePage = () => {
             fetchChats()
         }
     }, [fetchChats, loggedInUser])
-
-    const handleJoinRoomSuccess = useCallback((payload) => {
-        console.log(payload)
-    }, [])
-
-    useEffect(() => {
-        if (loggedInUser) {
-            socket.emit('JOIN_ROOM_REQ', loggedInUser)
-        }
-        socket.on('JOIN_ROOM_RES', handleJoinRoomSuccess)
-
-        return () => {
-            socket.off('JOIN_ROOM_RES', handleJoinRoomSuccess)
-        }
-    }, [handleJoinRoomSuccess, loggedInUser, socket])
 
     return (
         <Box

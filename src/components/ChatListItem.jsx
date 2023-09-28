@@ -23,7 +23,10 @@ const UserListItem = ({ chat }) => {
 
     const handleClick = async () => {
         dispatch(updateSelectedChat(chat)) //dispatch is synchronous
-        socket.emit('JOIN_CHAT_REQ', { roomId: chat._id })
+        socket.emit('JOIN_CHAT_REQ', { 
+            roomId: chat._id, 
+            // users: chat.users 
+        })
     }
 
     return (

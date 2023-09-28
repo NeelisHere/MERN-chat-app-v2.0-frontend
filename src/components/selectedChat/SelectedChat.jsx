@@ -8,12 +8,15 @@ import { fillMessages } from "../../slices/chat-slice.js"
 import toast from "react-hot-toast"
 import Message from "./Message"
 import { useSocket } from "../../context/SocketProvider"
+import { useChatAuth } from "../../context/ChatAuthProvider"
+import { getSender } from "../../utils"
 
 const SelectedChat = () => {
     const dispatch = useDispatch()
     const { socket } = useSocket()
     const [loading, setLoading] = useState(false)
     const [messages, setMessages] = useState([])
+    const { loggedInUser } = useChatAuth()
     // const { selectedChat, messages } = useSelector((state) => state.chat)
     const { selectedChat, messages: storeMessages } = useSelector((state) => state.chat)
     const messageEl = useRef(null);
@@ -22,11 +25,17 @@ const SelectedChat = () => {
         setMessages(storeMessages)
     }, [storeMessages])
 
-    const handleMessageReceived = ({ chatId, message }) => {
+    const handleMessageReceived = ({ message, chat }) => {
         console.log('message received...')
-        if (chatId === selectedChat?._id) {
+        if (selectedChat && chat._id === selectedChat?._id) {
             // fetchMessages()
             setMessages([...messages, message])
+        } else {
+            socket.emit('NOTIFY_REQ', { // sender and reciever of the original message
+                sender: getSender(chat.users, loggedInUser),
+                receiver:loggedInUser,
+                chat 
+            })
         }
     }
 

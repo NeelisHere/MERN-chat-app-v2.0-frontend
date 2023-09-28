@@ -17,6 +17,7 @@ export const registerUser = async (user) => api.post(`/users/register`, user)
 export const loginUser = async (user) => api.post(`/users/login`, user) 
 export const searchUser = async (text) => api.get(`/users?search=${text}`)
 export const updateMyProfileAPI = async (userId, data) => api.put(`/users/${userId}`, data)
+export const getUserProfileAPI = async (userId) => api.put(`/users/${userId}`)
 
 export const accessChat = async (userId) => api.post(`/chats`, { userId })
 export const fetchMyChats = async () => api.get(`/chats`)
