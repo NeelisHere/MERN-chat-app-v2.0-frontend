@@ -39,8 +39,8 @@ const UpdateMyProfileModal = ({ children }) => {
                 localStorage.setItem('userInfo', JSON.stringify(updatedUserInfo))
                 return data.updatedProfile
             })
-            dispatch(changeChatsUpdateFlagStatus(!chatsUpdateFlag))
             dispatch(changeMessagesUpdateFlagStatus())
+            dispatch(changeChatsUpdateFlagStatus(!chatsUpdateFlag))
             toast.success('Profile updated successfully!')
             onClose()
         } catch (error) {

@@ -10,11 +10,16 @@ import SocketProvider from './context/SocketProvider'
 const router = createBrowserRouter([
 	{
 		path: '/',
-		element: <Layout />,
+		element: 
+			<ChatAuthProvider>
+				<Layout />
+			</ChatAuthProvider>,
 		children: [
 			{
 				path: 'auth',
-				element: <AuthPage />
+				element: 
+					
+				<AuthPage />
 			},
 		]
 	},

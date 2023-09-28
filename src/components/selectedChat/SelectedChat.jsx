@@ -18,9 +18,27 @@ const SelectedChat = () => {
     const [messages, setMessages] = useState([])
     const { loggedInUser } = useChatAuth()
     // const { selectedChat, messages } = useSelector((state) => state.chat)
-    const { selectedChat, messages: storeMessages } = useSelector((state) => state.chat)
+    const { selectedChat, messages: storeMessages, messagesUpdateFlag } = useSelector((state) => state.chat)
     const messageEl = useRef(null);
 
+    const fetchMessages = useCallback(async () => {
+        try {
+            setLoading(true)
+            const { data } = await fetchMessagesAPI(selectedChat?._id)
+            // console.log(data)
+            dispatch(fillMessages([...data.messages]))
+        } catch (error) {
+            console.log(error)
+            toast.error('Error while fetching messages!')
+        } finally {
+            setLoading(false)
+        }
+    }, [dispatch, selectedChat?._id])
+    
+    useEffect(() => {
+        fetchMessages()
+    }, [messagesUpdateFlag, fetchMessages])
+    
     useEffect(() => {
         setMessages(storeMessages)
     }, [storeMessages])
@@ -48,23 +66,7 @@ const SelectedChat = () => {
         }
     })
 
-    const fetchMessages = useCallback(async () => {
-        try {
-            setLoading(true)
-            const { data } = await fetchMessagesAPI(selectedChat?._id)
-            // console.log(data)
-            dispatch(fillMessages([...data.messages]))
-        } catch (error) {
-            console.log(error)
-            toast.error('Error while fetching messages!')
-        } finally {
-            setLoading(false)
-        }
-    }, [dispatch, selectedChat?._id])
 
-    useEffect(() => {
-        fetchMessages()
-    }, [fetchMessages])
 
     useEffect(() => {
         if (messageEl) {

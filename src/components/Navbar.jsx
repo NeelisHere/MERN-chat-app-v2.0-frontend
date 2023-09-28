@@ -114,7 +114,7 @@ const Navbar = () => {
                         <MenuItem
                             onClick={() => {
                                 localStorage.removeItem('userInfo')
-                                navigate('/home')
+                                navigate('/')
                             }}
                         >
                             Logout

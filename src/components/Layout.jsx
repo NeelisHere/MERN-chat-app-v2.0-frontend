@@ -18,7 +18,7 @@ const Layout = () => {
 
     return (
         <Box
-            border={'2px solid red'}
+            // border={'2px solid red'}
             w={'100vw'}
             h={'100vh'}
             display={'flex'}

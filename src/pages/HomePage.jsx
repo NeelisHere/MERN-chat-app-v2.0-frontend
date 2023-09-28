@@ -18,6 +18,28 @@ const HomePage = () => {
     const { socket } = useSocket()
     const { loggedInUser } = useChatAuth()
     const { selectedChat } = useSelector((state) => state.chat)
+    
+    const fetchChats = useCallback(async () => {
+        try {
+            const { data } = await fetchMyChats()
+            dispatch(fillMyChats(data.myChats))
+            // console.log('>>', data.myChats)
+        } catch (error) {
+            console.log(error)
+            toast.error('Error fetching chats!')
+        }
+    }, [dispatch])
+    
+    useEffect(() => {
+        if (loggedInUser) {
+            fetchChats()
+        }
+        /*
+        because getting the logged-in-user info takes time.
+        so in the very first request, it is not able to send the user info with the header.
+        that is why this check is necessary
+        */
+    }, [fetchChats, loggedInUser])
 
     useEffect(() => {
         if (!loggedInUser) {
@@ -25,15 +47,15 @@ const HomePage = () => {
         }
     }, [loggedInUser, navigate])
 
-    const handleJoinRoomSuccess = useCallback((payload) => {
-        // console.log(payload)
-    }, [])
-
     useEffect(() => {
         if (loggedInUser) {
             socket.emit('JOIN_ROOM_REQ', loggedInUser)
         }
-    }, [handleJoinRoomSuccess, loggedInUser, socket])
+    }, [loggedInUser, socket])
+    
+    const handleJoinRoomSuccess = useCallback((payload) => {
+        // console.log(payload)
+    }, [])
 
     const handleMessageReceived = ({ message, chat }) => {
         // console.log('message received...')
@@ -48,40 +70,12 @@ const HomePage = () => {
 
     useEffect(() => {
         socket.on('NEW_MESSAGE_RES', handleMessageReceived)
+        socket.on('JOIN_ROOM_RES', handleJoinRoomSuccess)
         return () => {
             socket.off('NEW_MESSAGE_RES', handleMessageReceived)
-        }
-    })
-
-    useEffect(() => {
-        socket.on('JOIN_ROOM_RES', handleJoinRoomSuccess)
-
-        return () => {
             socket.off('JOIN_ROOM_RES', handleJoinRoomSuccess)
         }
     })
-
-    const fetchChats = useCallback(async () => {
-        try {
-            const { data } = await fetchMyChats()
-            dispatch(fillMyChats(data.myChats))
-            // console.log('>>', data.myChats)
-        } catch (error) {
-            console.log(error)
-            toast.error('Error fetching chats!')
-        }
-    }, [dispatch])
-
-    useEffect(() => {
-        /*
-        because getting the logged-in-user info takes time.
-        so in the very first request, it is not able to send the user info with the header.
-        that is why this check is necessary
-        */
-        if (loggedInUser) {
-            fetchChats()
-        }
-    }, [fetchChats, loggedInUser])
 
     return (
         <Box

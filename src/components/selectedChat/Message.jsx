@@ -1,8 +1,23 @@
-import { Box, Avatar } from "@chakra-ui/react"
+import { Box, Avatar, Divider } from "@chakra-ui/react"
 import { useChatAuth } from "../../context/ChatAuthProvider"
+import { useState, useEffect } from "react"
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
 const Message = ({ message }) => {
     const { loggedInUser } = useChatAuth()
+    const [date, setDate] = useState({ hours:'', minutes:'', year:'', month:'', day:'' })
+
+    useEffect(() => {
+        const date = new Date('2023-09-28T07:07:43.798+00:00')
+        const month = date.toLocaleString('default', { month: 'long' });
+        setDate({
+            hours: date.getHours(),
+            minutes: date.getMinutes(),
+            year: date.getFullYear(),
+            month: month.slice(0, 3),
+            day: date.getDay()
+        })
+    }, [message])
 
     return (
         <Box 
@@ -19,8 +34,10 @@ const Message = ({ message }) => {
                 display={"flex"}
                 // alignItems={'center'}
                 justifyContent={'center'}
-                gap={1}
-                p={'8px 20px'}
+                maxW={'70%'}
+                minW={'25%'}
+                gap={2}
+                p={'12px 20px'}
                 flexDir={
                     loggedInUser?._id === message.sender._id ? 
                     '' : 'row-reverse'
@@ -28,6 +45,7 @@ const Message = ({ message }) => {
             >
                 <Box
                     // border={'2px solid green'}
+                    w={'100%'}
                     borderRadius={'5px'}
                     borderTopRightRadius={
                         loggedInUser?._id === message.sender._id ? 
@@ -37,11 +55,42 @@ const Message = ({ message }) => {
                         loggedInUser?._id !== message.sender._id ? 
                         '0' : '5px'
                     }
-                    bg={'#f4f4f4'}
-                    py={'8px'} px={'12px'}
+                    bg={
+                        loggedInUser?._id === message.sender._id ? 
+                        'teal.500' : '#f4f4f4'
+                    }
+                    color={
+                        loggedInUser?._id === message.sender._id ? 
+                        'white' : '#333'
+                    }
+                    shadow={'md'}
+                    py={'12px'} px={'12px'}
+                    display={'flex'}
+                    flexDir={'column'}
+                    gap={'2'}
                     // h={'50px'}
                 >
                     {message.content}
+                    <Box
+                        // border={'2px solid red'}
+                        fontSize={'xs'}
+                        display={'flex'}
+                        justifyContent={'space-between'}
+                        alignItems={'center'}
+                        // py={'4px'}
+                    >
+                        <Box>
+                            {`${date.month} ${date.day}, ${date.year} - ${date.hours}:${date.minutes}`}
+                        </Box>
+                        <Box 
+                            cursor={'pointer'}
+                            display={'flex'}
+                            justifyContent={'space-between'}
+                            alignItems={'center'}
+                        >
+                            <MoreHorizIcon />
+                        </Box>
+                    </Box>
                 </Box>
                 <Box
                     // border={'2px solid green'}
