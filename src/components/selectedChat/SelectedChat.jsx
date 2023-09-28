@@ -26,7 +26,7 @@ const SelectedChat = () => {
     }, [storeMessages])
 
     const handleMessageReceived = ({ message, chat }) => {
-        console.log('message received...')
+        // console.log('message received...')
         if (selectedChat && chat._id === selectedChat?._id) {
             // fetchMessages()
             setMessages([...messages, message])
@@ -76,7 +76,7 @@ const SelectedChat = () => {
     }, [])
 
     const handleJoinChatResponse = (res) => {
-        console.log(res)
+        // console.log(res)
     }
 
     return (

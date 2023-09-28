@@ -12,8 +12,9 @@ const UserListItem = ({ user, onClose }) => {
     const handleClick = async (userId) => {
         if (!userId) return;
         try {
-            const { data } = await accessChat(userId)
-            console.log('Chat selected: ', data.chat)
+            // const { data } = await accessChat(userId)
+            // console.log('Chat selected: ', data.chat)
+            await accessChat(userId)
             dispatch(changeChatsUpdateFlagStatus(!chatsUpdateFlag))
             onClose()
         } catch (error) {

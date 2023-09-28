@@ -11,7 +11,8 @@ export const getImageURL = async (file) => {
     fomrData.append('file', file)
     fomrData.append('upload_preset', uploadPreset)
     fomrData.append('cloud_name', cloudName)
-    const url = 'https://api.cloudinary.com/v1_1/npaul-703/image/upload'
+    // const url = 'https://api.cloudinary.com/v1_1/npaul-703/image/upload'
+    const url = process.env.REACT_APP_CLOUDINARY_URL
     const { data } = await axios.post(url, fomrData)
     return data
 } 

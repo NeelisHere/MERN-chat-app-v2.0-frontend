@@ -26,7 +26,7 @@ const SingleChat = () => {
     // const { loggedInUser } = useChatAuth()
 
     const handleMessageReceived = ({ chatId, senderId, message }) => {
-        console.log('message received...')
+        // console.log('message received...')
         // if (selectedChat) {
         //     socket.emit('NOTIFY_REQ', { // sender and reciever of the original message
         //         senderId,

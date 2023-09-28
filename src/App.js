@@ -4,7 +4,6 @@ import Layout from './components/Layout';
 import AuthPage from './pages/AuthPage';
 import { Toaster } from 'react-hot-toast';
 import HomePage from './pages/HomePage';
-import EditProfilePage from './pages/EditProfilePage';
 import ChatAuthProvider from './context/ChatAuthProvider'
 import SocketProvider from './context/SocketProvider'
 
@@ -26,13 +25,6 @@ const router = createBrowserRouter([
 				<HomePage />
 			</ChatAuthProvider>
 	},
-	{
-		path: '/edit-profile',
-		element:
-			<ChatAuthProvider>
-				<EditProfilePage />
-			</ChatAuthProvider>
-	}
 ])
 
 const App = () => {

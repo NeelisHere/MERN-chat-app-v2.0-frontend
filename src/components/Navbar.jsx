@@ -1,4 +1,4 @@
-import { Box, Image, Text, Avatar, Button, IconButton } from '@chakra-ui/react'
+import { Box, Image, Text, Avatar, Button } from '@chakra-ui/react'
 import { Menu, MenuButton, MenuDivider, MenuList, MenuItem } from '@chakra-ui/react'
 import { useChatAuth } from '../context/ChatAuthProvider'
 import SideDrawer from './SideDrawer'

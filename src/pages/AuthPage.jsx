@@ -1,6 +1,5 @@
 import { Container } from "@chakra-ui/react"
 import { Box } from "@chakra-ui/react"
-import { Text } from "@chakra-ui/react"
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 import Login from "../components/auth/Login"
 import Register from "../components/auth/Register"

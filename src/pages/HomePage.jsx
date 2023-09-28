@@ -10,15 +10,23 @@ import toast from 'react-hot-toast'
 import { useSocket } from '../context/SocketProvider'
 import { useChatAuth } from '../context/ChatAuthProvider'
 import { getSender } from '../utils'
+import { useNavigate } from 'react-router-dom'
 
 const HomePage = () => {
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const { socket } = useSocket()
     const { loggedInUser } = useChatAuth()
     const { selectedChat } = useSelector((state) => state.chat)
 
+    useEffect(() => {
+        if (!loggedInUser) {
+            navigate('/auth')
+        }
+    }, [loggedInUser, navigate])
+
     const handleJoinRoomSuccess = useCallback((payload) => {
-        console.log(payload)
+        // console.log(payload)
     }, [])
 
     useEffect(() => {
@@ -28,7 +36,7 @@ const HomePage = () => {
     }, [handleJoinRoomSuccess, loggedInUser, socket])
 
     const handleMessageReceived = ({ message, chat }) => {
-        console.log('message received...')
+        // console.log('message received...')
         if (!selectedChat) {
             socket.emit('NOTIFY_REQ', { // sender and reciever of the original message
                 sender: getSender(chat.users, loggedInUser),

@@ -14,4 +14,6 @@ class FormValidationSchemas {
     }
 }   
 
-export default new FormValidationSchemas()
+const schema = new FormValidationSchemas()
+
+export default schema
