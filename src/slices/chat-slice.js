@@ -29,6 +29,14 @@ export const chatSlice = createSlice({
         },
         updateSelectedChat: (state, action) => {
             state.selectedChat = action.payload;
+        },
+        updateMessagesAfterMessageUpdate: (state, action) => {
+            const { _id: messageId, content } = action.payload
+            state.messages = state.messages.forEach((message) => {
+                if (message._id === messageId) {
+                    message.content = content
+                }
+            })
         }
     },
 });
@@ -36,6 +44,7 @@ export const chatSlice = createSlice({
 export const { 
     changeChatsUpdateFlagStatus, 
     changeMessagesUpdateFlagStatus,
+    updateMessagesAfterMessageUpdate,
     fillMyChats,
     fillMessages,
     updateSelectedChat 

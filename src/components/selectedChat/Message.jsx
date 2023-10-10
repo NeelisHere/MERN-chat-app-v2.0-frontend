@@ -1,7 +1,8 @@
-import { Box, Avatar, Divider } from "@chakra-ui/react"
+import { Box, Avatar } from "@chakra-ui/react"
 import { useChatAuth } from "../../context/ChatAuthProvider"
 import { useState, useEffect } from "react"
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import MessageOptions from "./MessageOptions";
 
 const Message = ({ message }) => {
     const { loggedInUser } = useChatAuth()
@@ -88,7 +89,9 @@ const Message = ({ message }) => {
                             justifyContent={'space-between'}
                             alignItems={'center'}
                         >
-                            <MoreHorizIcon />
+                            <MessageOptions message={message}>
+                                <MoreHorizIcon />
+                            </MessageOptions>
                         </Box>
                     </Box>
                 </Box>
