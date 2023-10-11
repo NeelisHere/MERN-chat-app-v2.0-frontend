@@ -38,6 +38,7 @@ const EditMessageModal = ({ children, message }) => {
 			dispatch(changeMessagesUpdateFlagStatus())
             dispatch(changeChatsUpdateFlagStatus(!chatsUpdateFlag))
 			toast.success('Message updated successfully!')
+			onClose()
 		} catch (error) {
 			toast.error('Error updating message!')
 		} finally {

@@ -57,7 +57,7 @@ const MyChats = () => {
                 bg={'#f4f4f4'}
                 h={'70px'}
             >
-                <Text fontSize={'xl'} fontWeight={'semibold'} >Heading</Text>
+                <Text fontSize={'xl'} fontWeight={'semibold'}>Heading</Text>
                 <GroupChatModal>
                     <Button colorScheme='teal' rightIcon={<AddIcon />}>
                         Create Group

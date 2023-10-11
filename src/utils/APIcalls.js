@@ -30,13 +30,5 @@ export const updateGroupPhotoAPI = async (data) => api.put(`/chats/group/edit-ph
 export const fetchMessagesAPI = async (chatId) => api.get(`/messages/${chatId}`)
 export const sendMessageAPI = async (data) => api.post(`/messages/`, data)
 export const editMessageAPI = async (data) => api.put(`/messages/edit`, data)
-export const deleteMessageAPI = async (data) => api.delete(`/messages/delete`, data)
+export const deleteMessageAPI = async (data) => api.put(`/messages/delete`, data)
 
-// export const searchUser = async (text) => {
-//     const token = JSON.parse(localStorage.getItem('userInfo'))?.token
-//     const headers = {
-//         Authorization: `Bearer ${token}`
-//     }
-//     const url = `${API_BASE_URL}/users?search=${text}`
-//     return await axios.get(url, { headers })
-// }

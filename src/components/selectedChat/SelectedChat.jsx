@@ -109,9 +109,15 @@ const SelectedChat = () => {
                         :
                         <>  
                             {
-                                messages?.map((message, index) => 
-                                    <Message key={index} message={message} />
-                                )
+                                messages?.map((message, index) => {
+                                    if (message.deleteFor.includes(loggedInUser._id)) {
+                                        return null
+                                    } else {
+                                        return(
+                                            <Message key={index} message={message} />
+                                        )
+                                    }
+                                })
                             }
                         </>
                     }
