@@ -78,6 +78,10 @@ const Message = ({ message }) => {
                         </video>
                     }
                     {
+                        message.type === 'image' &&
+                        <img src={message?.content} width="320" height="240" alt="x" />
+                    }
+                    {
                         message.type === ('text' || null || undefined) &&
                         message.content
                     }

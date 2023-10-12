@@ -13,7 +13,6 @@ import VideoCameraBackIcon from '@mui/icons-material/VideoCameraBack';
 import { useState } from "react";
 import { sendMessageAPI } from "../../utils/APIcalls";
 import { useSelector } from "react-redux";
-// import { changeMessagesUpdateFlagStatus, changeChatsUpdateFlagStatus } from '../../slices/chat-slice.js'
 import toast from "react-hot-toast";
 import { useSocket } from "../../context/SocketProvider";
 import SendModal from "../sendOptions/SendModal";
@@ -33,8 +32,6 @@ const SelectedChatInput = () => {
                 chatId: selectedChat?._id
             }
             const { data } = await sendMessageAPI(payload)
-            // dispatch(changeMessagesUpdateFlagStatus())
-            // dispatch(changeChatsUpdateFlagStatus(!chatsUpdateFlag))
             socket.emit('NEW_MESSAGE_REQ', {
                 message: data.message,
                 chat: selectedChat

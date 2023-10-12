@@ -85,11 +85,12 @@ const CaptureVideoModal = ({ onOpen, isOpen, onClose }) => {
                 console.log(error)
                 toast.error('Error sending video!')
             } finally {
+                onClose()
                 setLoading(false)
             }
             setRecordedChunks([]);
         }
-    }, [chatsUpdateFlag, dispatch, recordedChunks, selectedChat, socket])
+    }, [chatsUpdateFlag, dispatch, onClose, recordedChunks, selectedChat, socket])
 
     return (
         <>
