@@ -4,6 +4,7 @@ import { Box, useDisclosure } from '@chakra-ui/react'
 import CaptureVideoModal from './CaptureVideoModal'
 import CaptureAudioModal from './CaptureAudioModal'
 import SendFileModal from './SendFileModal'
+import SendEmojis from './SendEmojis'
 
 const SendModal = ({ children, type }) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -24,6 +25,11 @@ const SendModal = ({ children, type }) => {
             onClose={onClose}
         />,
         <SendFileModal
+            onOpen={onOpen}
+            isOpen={isOpen}
+            onClose={onClose}
+        />,
+        <SendEmojis
             onOpen={onOpen}
             isOpen={isOpen}
             onClose={onClose}

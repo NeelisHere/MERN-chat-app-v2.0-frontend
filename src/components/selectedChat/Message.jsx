@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import MessageOptions from "./MessageOptions";
 import { v4 } from 'uuid'
+import { Emoji } from 'emoji-picker-react';
 
 const Message = ({ message }) => {
     const { loggedInUser } = useChatAuth()
@@ -112,6 +113,10 @@ const Message = ({ message }) => {
                                 </Box>
                             )
                         })
+                    }
+                    {
+                        message.type === 'emoji' &&
+                        <Emoji unified={message.content} size={40} />
                     }
                     {
                         message.type === ('text' || null || undefined) &&
