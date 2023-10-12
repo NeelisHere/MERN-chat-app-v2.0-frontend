@@ -71,7 +71,16 @@ const Message = ({ message }) => {
                     gap={'2'}
                     // h={'50px'}
                 >
-                    {message.content}
+                    {
+                        message.type === 'video' &&
+                        <video width="320" height="240" controls>
+                            <source src={message?.content} />
+                        </video>
+                    }
+                    {
+                        message.type === ('text' || null || undefined) &&
+                        message.content
+                    }
                     <Box
                         // border={'2px solid red'}
                         fontSize={'xs'}

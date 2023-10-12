@@ -16,6 +16,7 @@ import { useSelector } from "react-redux";
 // import { changeMessagesUpdateFlagStatus, changeChatsUpdateFlagStatus } from '../../slices/chat-slice.js'
 import toast from "react-hot-toast";
 import { useSocket } from "../../context/SocketProvider";
+import SendModal from "../sendOptions/SendModal";
 
 const SelectedChatInput = () => {
     // const dispatch = useDispatch()
@@ -49,14 +50,14 @@ const SelectedChatInput = () => {
     }
 
     const sendOptions = [
+        { type: 'Capture Image', icon: <CameraAltIcon /> },
+        { type: 'Capture Video', icon: <VideoCameraBackIcon /> },
+        { type: 'Capture Audio', icon: <MicIcon /> },
         { type: 'Text File', icon: <DescriptionIcon /> },
         { type: 'Video File', icon: <VideoFileIcon /> },
         { type: 'Audio File', icon: <AudioFileIcon /> },
         { type: 'Image File', icon: <ImageIcon /> },
-        { type: 'Capture Image', icon: <CameraAltIcon/> },
-        { type: 'Capture Audio', icon: <MicIcon/> },
-        { type: 'Capture Video', icon: <VideoCameraBackIcon/> },
-        { type: 'Emojis', icon: <EmojiEmotionsIcon/> },
+        { type: 'Emojis', icon: <EmojiEmotionsIcon /> },
     ]
 
     return (
@@ -78,8 +79,8 @@ const SelectedChatInput = () => {
                     variant='filled'
                     placeholder='Type message here...'
                     value={message}
-                    onChange={(e) => { 
-                        setMessage(e.target.value) 
+                    onChange={(e) => {
+                        setMessage(e.target.value)
                     }}
                 />
             </Box>
@@ -94,7 +95,7 @@ const SelectedChatInput = () => {
                     <MenuButton as={IconButton} icon={<MoreVertIcon />} />
                     <MenuList>
                         <Text textAlign={'center'} fontWeight={'semibold'}>Send Options</Text>
-                        <Grid 
+                        <Grid
                             // border={'2px solid red'}
                             templateRows='repeat(3, 1fr)'
                             templateColumns='repeat(3, 1fr)'
@@ -102,14 +103,16 @@ const SelectedChatInput = () => {
                         >
                             {
                                 sendOptions.map((option, index) => {
-                                    return(
-                                        <Tooltip key={index} label={option.type}>
-                                            <Avatar
-                                                cursor={'pointer'}
-                                                bg={'#606060'}
-                                                icon={option.icon}
-                                            />
-                                        </Tooltip>
+                                    return (
+                                        <SendModal key={index} type={index}>
+                                            <Tooltip key={index} label={option.type}>
+                                                <Avatar
+                                                    cursor={'pointer'}
+                                                    bg={'#606060'}
+                                                    icon={option.icon}
+                                                />
+                                            </Tooltip>
+                                        </SendModal>
                                     )
                                 })
                             }
@@ -119,15 +122,15 @@ const SelectedChatInput = () => {
             </Box>
             <Box
                 // border={'2px solid red'}
-                w={'5%'} 
+                w={'5%'}
                 h={'100%'}
                 display={'flex'}
                 justifyContent={'center'}
                 alignItems={'center'}
             >
-                <IconButton 
+                <IconButton
                     onClick={handleSend}
-                    icon={<SendIcon />} 
+                    icon={<SendIcon />}
                     isLoading={loading}
                 />
             </Box>

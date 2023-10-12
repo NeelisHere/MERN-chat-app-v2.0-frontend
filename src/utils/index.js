@@ -16,3 +16,7 @@ export const getImageURL = async (file) => {
     const { data } = await axios.post(url, fomrData)
     return data
 } 
+
+export const findMessageType = async () => {
+    
+}
