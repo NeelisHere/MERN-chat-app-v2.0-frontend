@@ -59,14 +59,14 @@ const CaptureAudioModal = ({ onOpen, isOpen, onClose }) => {
             setLoading(false)
         }
     }
-    
+
     return (
         <>
             {/* <Box onClick={onOpen}>{ children }</Box> */}
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent>
-                    <ModalHeader>Modal Title</ModalHeader>
+                    <ModalHeader>Record Audio</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody py={'20px'} display={'flex'} justifyContent={'center'}>
                         <AudioRecorder

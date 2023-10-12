@@ -1,8 +1,9 @@
-import { Box, Avatar } from "@chakra-ui/react"
+import { Box, Avatar, Text, Image } from "@chakra-ui/react"
 import { useChatAuth } from "../../context/ChatAuthProvider"
 import { useState, useEffect } from "react"
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import MessageOptions from "./MessageOptions";
+import { v4 } from 'uuid'
 
 const Message = ({ message }) => {
     const { loggedInUser } = useChatAuth()
@@ -84,6 +85,33 @@ const Message = ({ message }) => {
                     {
                         message.type === 'image' &&
                         <img src={message?.content} width="320" height="240" alt="x" />
+                    }
+                    {
+                        message.type === 'file' &&
+                        JSON.parse(message.content).map((url, index) => {
+                            return (
+                                <Box 
+                                    key={v4()}
+                                    bg={'teal.600'}
+                                    display={'flex'}
+                                    justifyContent={'flex-start'}
+                                    gap={'10px'}
+                                    alignItems={'center'}
+                                    p={'10px 10px'}
+                                    borderRadius={'md'}
+                                >
+                                    <Image 
+                                        src='/document.png' 
+                                        boxSize='30px'
+                                        objectFit='cover'
+                                        alt='x' 
+                                    />
+                                    <Text>
+                                        <a href={ url }>File-{index + 1}</a>
+                                    </Text>
+                                </Box>
+                            )
+                        })
                     }
                     {
                         message.type === ('text' || null || undefined) &&
