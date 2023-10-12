@@ -78,6 +78,10 @@ const Message = ({ message }) => {
                         </video>
                     }
                     {
+                        message.type === 'audio' &&
+                        <audio src={message?.content} controls={true} />
+                    }
+                    {
                         message.type === 'image' &&
                         <img src={message?.content} width="320" height="240" alt="x" />
                     }

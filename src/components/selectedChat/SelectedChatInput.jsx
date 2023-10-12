@@ -5,10 +5,8 @@ import SendIcon from '@mui/icons-material/Send';
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
 import DescriptionIcon from '@mui/icons-material/Description';
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
-import ImageIcon from '@mui/icons-material/Image';
-import AudioFileIcon from '@mui/icons-material/AudioFile';
 import MicIcon from '@mui/icons-material/Mic';
-import VideoFileIcon from '@mui/icons-material/VideoFile';
+import UploadFileIcon from '@mui/icons-material/UploadFile';
 import VideoCameraBackIcon from '@mui/icons-material/VideoCameraBack';
 import { useState } from "react";
 import { sendMessageAPI } from "../../utils/APIcalls";
@@ -50,10 +48,7 @@ const SelectedChatInput = () => {
         { type: 'Capture Image', icon: <CameraAltIcon /> },
         { type: 'Capture Video', icon: <VideoCameraBackIcon /> },
         { type: 'Capture Audio', icon: <MicIcon /> },
-        { type: 'Text File', icon: <DescriptionIcon /> },
-        { type: 'Video File', icon: <VideoFileIcon /> },
-        { type: 'Audio File', icon: <AudioFileIcon /> },
-        { type: 'Image File', icon: <ImageIcon /> },
+        { type: 'Files', icon: <UploadFileIcon /> },
         { type: 'Emojis', icon: <EmojiEmotionsIcon /> },
     ]
 

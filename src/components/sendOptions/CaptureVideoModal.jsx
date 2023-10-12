@@ -6,7 +6,7 @@ import {
     ModalFooter,
     ModalBody,
     ModalCloseButton,
-    useDisclosure,
+    Text,
     Button,
     Box
 } from '@chakra-ui/react'
@@ -101,10 +101,22 @@ const CaptureVideoModal = ({ onOpen, isOpen, onClose }) => {
                     <ModalHeader>Modal Title</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody py={'20px'}>
+                        {
+                            capturing &&
+                            <Text 
+                                textAlign={'center'} 
+                                fontWeight={'semibold'} 
+                                textColor={'red'} 
+                                fontSize={'xl'} 
+                                py={'10px'}
+                            >
+                                Recording...
+                            </Text>
+                        }
                         <Webcam
                             height={400}
                             width={400}
-                            audio={true}
+                            audio={false}
                             mirrored={true}
                             ref={webcamRef}
                             videoConstraints={{
