@@ -9,9 +9,7 @@ export const useSocket = () => {
 
 const SocketProvider = ({ children }) => {
     const socket = useMemo(() => {
-        // const socketURL = 'http://localhost:8000'
-        const socketURL = process.env.REACT_APP_SOCKET_SERVER_URL
-        // return io('http://localhost:8000')
+        const socketURL = process.env.REACT_APP_API_BASE_URL
         return io(socketURL)
     }, [])
     
