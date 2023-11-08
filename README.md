@@ -52,8 +52,14 @@ This application is built on a foundation of real-time communication and robust 
 ![image](https://github.com/NeelisHere/MERN-chat-app-v2.0-frontend/assets/87941703/60e9c6a8-aee3-4697-bd8e-92df6245e9ea)
 ![image](https://github.com/NeelisHere/MERN-chat-app-v2.0-frontend/assets/87941703/5d10e507-8939-4bad-84cc-9816d4be5ea9)
 ![image](https://github.com/NeelisHere/MERN-chat-app-v2.0-frontend/assets/87941703/57c82ff5-c537-43d5-bb39-6a6fb92f255e)
-![image](https://github.com/NeelisHere/MERN-chat-app-v2.0-frontend/assets/87941703/18f85816-411b-4e80-8ac3-23a29fdef174)
-![image](https://github.com/NeelisHere/MERN-chat-app-v2.0-frontend/assets/87941703/d059b676-7a92-4531-a6db-06463588cddc)
+![Screenshot (52)](https://github.com/NeelisHere/MERN-chat-app-v2.0-frontend/assets/87941703/61eba3cd-7c6b-4003-9812-fe47201629f5)
+![Screenshot (56)](https://github.com/NeelisHere/MERN-chat-app-v2.0-frontend/assets/87941703/711244fa-7e03-4b23-aee2-40f2239e941c)
+![Screenshot (55)](https://github.com/NeelisHere/MERN-chat-app-v2.0-frontend/assets/87941703/abce5476-b9e2-4b5f-a49c-50953549cc4e)
+![Screenshot (39)](https://github.com/NeelisHere/MERN-chat-app-v2.0-frontend/assets/87941703/7ef1f8d4-db8b-4ecc-ae8e-8b3c544d4dfb)
+![Screenshot (38)](https://github.com/NeelisHere/MERN-chat-app-v2.0-frontend/assets/87941703/ee16496e-dda7-4e98-9ac9-bd6cd0dad4ea)
+![Screenshot (54)](https://github.com/NeelisHere/MERN-chat-app-v2.0-frontend/assets/87941703/4d2ed20a-ee3d-4e98-bbb0-10e59d910e2a)
+
+
 
 
 
