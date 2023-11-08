@@ -55,8 +55,6 @@ This application is built on a foundation of real-time communication and robust 
 ![Screenshot (52)](https://github.com/NeelisHere/MERN-chat-app-v2.0-frontend/assets/87941703/61eba3cd-7c6b-4003-9812-fe47201629f5)
 ![Screenshot (56)](https://github.com/NeelisHere/MERN-chat-app-v2.0-frontend/assets/87941703/711244fa-7e03-4b23-aee2-40f2239e941c)
 ![Screenshot (55)](https://github.com/NeelisHere/MERN-chat-app-v2.0-frontend/assets/87941703/abce5476-b9e2-4b5f-a49c-50953549cc4e)
-![Screenshot (39)](https://github.com/NeelisHere/MERN-chat-app-v2.0-frontend/assets/87941703/7ef1f8d4-db8b-4ecc-ae8e-8b3c544d4dfb)
-![Screenshot (38)](https://github.com/NeelisHere/MERN-chat-app-v2.0-frontend/assets/87941703/ee16496e-dda7-4e98-9ac9-bd6cd0dad4ea)
 ![Screenshot (54)](https://github.com/NeelisHere/MERN-chat-app-v2.0-frontend/assets/87941703/4d2ed20a-ee3d-4e98-bbb0-10e59d910e2a)
 
 
