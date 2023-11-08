@@ -32,6 +32,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "prod": "webpack --mode production --env production",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
