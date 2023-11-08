@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import UpdateMyProfileModal from './UpdateMyProfileModal.jsx'
 import { useState, useEffect } from 'react'
 import { useSocket } from '../context/SocketProvider'
-import NotificationBadge from 'react-notification-badge';
+// import NotificationBadge from 'react-notification-badge';
 import NotificationList from './selectedChat/NotificationList'
 
 const Navbar = () => {
@@ -85,13 +85,13 @@ const Navbar = () => {
                             sx={{ fontSize: 36 }}
                         />
                     </NotificationList>
-                    <NotificationBadge 
+                    {/* <NotificationBadge 
                         count={notificationCount} 
                         style={{ 
                             top: '-48px', 
                             right: '-10px' 
                         }} 
-                    />
+                    /> */}
                 </Box>
                 <Menu>
                     <MenuButton as={Button} rightIcon={<ExpandMoreIcon />}>
